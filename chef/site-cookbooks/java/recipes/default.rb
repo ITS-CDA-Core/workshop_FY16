@@ -5,7 +5,7 @@ end
 
 bash "Create /etc/profile.d/set_JAVA_HOME.sh" do
 	code  <<-EOS
-		readlink $(readlink $(which javac)) | sed -e "s/\\/bin\\/javac//" > /etc/profile.d/set_JAVA_HOME.sh
+		echo "JAVA_HOME="$(readlink $(readlink $(which javac)) | sed -e "s/\\/bin\\/javac//") > /etc/profile.d/set_JAVA_HOME.sh
 	EOS
 	action :run
 	not_if { File.exists?("/etc/profile.d/set_JAVA_HOME.sh") }
